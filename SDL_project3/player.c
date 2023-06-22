@@ -37,7 +37,7 @@ void playerInit(Player* ptr,  int x, int y)
 
 
 
-// Fonction de déplacement du joueur
+// Fonction de dï¿½placement du joueur
 void movement(Player* p)
 {
     // Deplacements verticaux et horizontaux du joueur
@@ -59,7 +59,7 @@ void movement(Player* p)
     p->y_pos += p->y_vel / 60;
 
 
-    // Protections pour empêcher le joueur de traverser les limites
+    // Protections pour empï¿½cher le joueur de traverser les limites
     if (p->x_pos <= 0)
     {
         p->x_pos = 0;

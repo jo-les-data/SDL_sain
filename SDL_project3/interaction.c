@@ -19,7 +19,7 @@ void colorIntersection(SDL_Renderer* rend, SDL_Rect* rect1, SDL_Rect* rect2)
 void colision(Player* player, SDL_Rect* obstacle)
 {
 	SDL_Rect intersect;
-	SDL_bool hasIntersect = SDL_HasIntersection(&(player->rect), obstacle, &intersect);
+	SDL_bool hasIntersect = SDL_IntersectRect(&(player->rect), obstacle, &intersect);
 	if (hasIntersect == SDL_TRUE)
 	{
 		if (intersect.w > intersect.h)
@@ -35,5 +35,8 @@ void colision(Player* player, SDL_Rect* obstacle)
 
 void victoireChasseur(Player* chasseur, Player* proie)
 {
-
+	if (SDL_HasIntersection(chasseur, proie)== SDL_TRUE)
+	{
+		resetGame();
+	}
 }
