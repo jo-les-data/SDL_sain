@@ -1,12 +1,13 @@
-/*This source code copyrighted by Lazy Foo' Productions 2004-2023
-and may not be redistributed without written permission.*/
-
-// test changement
-
-//Using SDL and standard IO
-#include <SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <SDL.h>
+#define WIDTH 1200
+#define HEIGHT 800
+#define SIZE 100
+#define SPEED 600
+#define GRAVITY 60
+#define FPS 60
+#define JUMP -1200
 
 
 typedef struct Player
