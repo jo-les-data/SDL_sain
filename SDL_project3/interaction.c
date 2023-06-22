@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include <SDL.h>
+#include "player.h"
 
 void colorIntersection(SDL_Renderer* rend, SDL_Rect* rect1, SDL_Rect* rect2)
 {
@@ -17,8 +18,7 @@ void colorIntersection(SDL_Renderer* rend, SDL_Rect* rect1, SDL_Rect* rect2)
 
 void colision(Player* player1, Player* player2)
 {
-	SDL_Rect intersect;
-	SDL_bool hasIntersect = SDL_IntersectRect(player1->rect, player2->rect, &intersect);
+	SDL_bool hasIntersect = SDL_HasIntersection(player1->rect, player2->rect);
 	if (hasIntersect == SDL_TRUE)
 	{
 		float x_v = player1->x_vel;
