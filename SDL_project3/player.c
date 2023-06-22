@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include "player.h"
 
+
+// Definition des constantes
 #define WIDTH 1200
 #define HEIGHT 800
 #define SIZE 100
@@ -10,10 +12,11 @@
 #define JUMP -1200
 
 
+// Initialisation du joueur avec les positions x et y
 void playerInit(Player* ptr,  int x, int y)
 {
 
-
+        
         ptr->jump_pressed = false;
         ptr->left_pressed = false;
         ptr->right_pressed = false;
@@ -33,15 +36,17 @@ void playerInit(Player* ptr,  int x, int y)
 }
 
 
+
+// Fonction de déplacement du joueur
 void movement(Player* p)
 {
-    /* Move the rectangle */
+    // Deplacements verticaux et horizontaux du joueur
     p->x_vel = (p->right_pressed - p->left_pressed) * SPEED;
     p->y_vel += GRAVITY;
 
 
 
-
+    // Le joueur monte si il est en train de sauter
     if (p->jump_pressed)
     {
         p->y_vel = JUMP;
@@ -49,22 +54,16 @@ void movement(Player* p)
     }
 
 
-
+    // Deplacement du joueur en fonction de la vitesse
     p->x_pos += p->x_vel / 60;
     p->y_pos += p->y_vel / 60;
 
 
-
+    // Protections pour empêcher le joueur de traverser les limites
     if (p->x_pos <= 0)
     {
         p->x_pos = 0;
     }
-
-
-
-
-
-
 
     if (p->x_pos >= WIDTH - p->rect.w)
     {
@@ -77,9 +76,6 @@ void movement(Player* p)
         p->y_pos = 0;
     }
 
-
-
-
     if (p->y_pos >= HEIGHT - p->rect.h)
     {
         p->y_vel = 0;
@@ -90,7 +86,7 @@ void movement(Player* p)
 
 
 
-
+    // Assignation des positions au sprite du joueur
     p->rect.x = (int)p->x_pos;
     p->rect.y = (int)p->y_pos;
 
