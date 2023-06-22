@@ -1,200 +1,99 @@
-#include <stdio.h>
-#include <stdbool.h>
 #include <SDL.h>
+#include <stdbool.h>
 #include "player.h"
-
-
 
 #define WIDTH 1200
 #define HEIGHT 800
-#define FPS 60
 #define SIZE 100
+#define SPEED 600
+#define GRAVITY 60
+#define JUMP -1200
 
 
-
-
-
-void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
+void playerInit(Player* ptr,  int x, int y)
 {
-    SDL_Event event;
-    
 
-    while (running)
-    {
-        /* Process events */
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                running = false;
-                break;
 
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_UP:
-                    p2->jump_pressed = true;
-                    break;
+        ptr->jump_pressed = false;
+        ptr->left_pressed = false;
+        ptr->right_pressed = false;
 
-                case SDL_SCANCODE_LEFT:
-                    p2->left_pressed = true;
-                    break;
+        ptr->x_pos = x;
+        ptr->y_pos = y;
+        ptr->x_vel = 0;
+        ptr->y_vel = 0;
 
-                case SDL_SCANCODE_RIGHT:
-                    p2->right_pressed = true;
-                    break;
+        SDL_Rect rect = { (int)ptr->x_pos, (int)ptr->y_pos, SIZE, SIZE };
 
-                case SDL_SCANCODE_W:
-                    p1->jump_pressed = true;
-                    break;
 
-                case SDL_SCANCODE_A:
-                    p1->left_pressed = true;
-                    break;
-
-                case SDL_SCANCODE_D:
-                    p1->right_pressed = true;
-                    break;
+        ptr->rect = rect;
 
 
 
-                default:
-                    break;
-
-                }
-                break;
-
-            case SDL_KEYUP:
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_UP:
-                    p2->jump_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_LEFT:
-                    p2->left_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_RIGHT:
-                    p2->right_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_W:
-                    p1->jump_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_A:
-                    p1->left_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_D:
-                    p1->right_pressed = false;
-                    break;
-
-
-
-                default:
-                    break;
-
-                }
-                break;
-
-            default:
-                break;
-            }
-        }
-
-        /* Clear screen */
-        SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-        SDL_RenderClear(rend);
-
-
-        movement(p1);
-        movement(p2);
-
-
-
-        /* Draw the rectangle */
-        SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
-        SDL_RenderFillRect(rend, &p1->rect);
-        SDL_RenderFillRect(rend, &p2->rect);
-
-        /* Draw to window and loop */
-        SDL_RenderPresent(rend);
-        SDL_Delay(1000 / FPS);
-
-    }
 }
 
 
-
-
-
-
-int main(int argc, char* argv[])
+void movement(Player* p)
 {
+    /* Move the rectangle */
+    p->x_vel = (p->right_pressed - p->left_pressed) * SPEED;
+    p->y_vel += GRAVITY;
 
-    
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+
+
+    if (p->jump_pressed)
     {
-        printf("Error initializing SDL: %s\n", SDL_GetError());
+        p->y_vel = JUMP;
 
     }
 
 
-    SDL_Window* wind = SDL_CreateWindow("Hello Platformer!",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        WIDTH, HEIGHT, 0);
 
-    if (!wind)
+    p->x_pos += p->x_vel / 60;
+    p->y_pos += p->y_vel / 60;
+
+
+
+    if (p->x_pos <= 0)
     {
-        printf("Error creating window: %s\n", SDL_GetError());
-        SDL_Quit();
-    }
-
-
-    Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
-
-
-
-    SDL_Renderer* rend = SDL_CreateRenderer(wind, -1, render_flags);
-
-
-
-    if (!rend)
-    {
-
-        printf("Error creating renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(wind);
-        SDL_Quit();
+        p->x_pos = 0;
     }
 
 
 
 
-    bool running = true;
 
 
-    int start = HEIGHT - SIZE;
 
-    Player p1;  playerInit(&p1,0, start);
-    Player p2;  playerInit(&p2,WIDTH, start);
-
-
-    
-
-    update(running, &p1, &p2, rend);
-
-    /* Release resources */
-
-    ressourceRelease(rend, wind);
+    if (p->x_pos >= WIDTH - p->rect.w)
+    {
+        p->x_pos = WIDTH - p->rect.w;
+    }
 
 
-    
-    return 0;
+    if (p->y_pos <= 0)
+    {
+        p->y_pos = 0;
+    }
+
+
+
+
+    if (p->y_pos >= HEIGHT - p->rect.h)
+    {
+        p->y_vel = 0;
+        p->y_pos = HEIGHT - p->rect.h;
+
+
+    }
+
+
+
+
+    p->rect.x = (int)p->x_pos;
+    p->rect.y = (int)p->y_pos;
+
+
 }
-
 
