@@ -19,7 +19,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
 
     while (running)
     {
-        // Verification des touches appuyées
+        // Verification des touches appuyï¿½es
         while (SDL_PollEvent(&event))
         {
             switch (event.type)
@@ -29,7 +29,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
                 break;
 
 
-                // Changement de l'état des boutons quand les touches sont appuyées
+                // Changement de l'ï¿½tat des boutons quand les touches sont appuyï¿½es
             case SDL_KEYDOWN:
                 switch (event.key.keysym.scancode)
                 {
@@ -66,7 +66,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
                 break;
 
 
-                //Changement de l'état des boutons quand les touches sont enlevés
+                //Changement de l'ï¿½tat des boutons quand les touches sont enlevï¿½s
             case SDL_KEYUP:
                 switch (event.key.keysym.scancode)
                 {
@@ -107,7 +107,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
             }
         }
 
-        // Nettoyage de l'écran
+        // Nettoyage de l'ï¿½cran
         SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
         SDL_RenderClear(rend);
 
@@ -122,7 +122,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
         SDL_RenderFillRect(rend, &p1->rect);
         SDL_RenderFillRect(rend, &p2->rect);
 
-        // Affichage des sprite et définition du pas 
+        // Affichage des sprite et dï¿½finition du pas 
         SDL_RenderCopy(rend, texture, NULL, NULL);
         SDL_RenderCopy(rend, texturebu, NULL, &p1->rect);
         SDL_RenderCopy(rend, texturebu, NULL, &p2->rect);
