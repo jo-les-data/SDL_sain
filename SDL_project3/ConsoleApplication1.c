@@ -12,13 +12,14 @@
 
 typedef struct Player
 {
-    bool *jump_pressed; 
-    bool *left_pressed;
-    bool *right_pressed;
+    bool jump_pressed;
+    bool left_pressed;
+    bool right_pressed;
     int x_pos;
     int y_pos;
     int x_vel;
     int y_vel;
+    SDL_Rect rect;
 
 } Player;
 
@@ -26,29 +27,250 @@ typedef struct Player
 Player* playerInit(int x, int y)
 {
 
-    Player* ptr = malloc(sizeof(Player));
+    Player* ptr = (Player*) malloc(sizeof(Player));
 
     if (ptr != NULL)
     {
         ptr->jump_pressed = false;
         ptr->left_pressed = false;
         ptr->right_pressed = false;
+
         ptr->x_pos = x;
         ptr->y_pos = y;
         ptr->x_vel = 0;
         ptr->y_vel = 0;
 
+        SDL_Rect rect = { (int)ptr->x_pos, (int)ptr->y_pos, SIZE, SIZE };
 
 
+        ptr->rect = rect;
         return ptr;
+        
+
+
+
     }
     else
     {
+        printf("erreur 2 creation joueur");
         return NULL;
     }
 
 
 }
+
+
+
+void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
+{
+    SDL_Event event;
+    
+
+    while (running)
+    {
+        /* Process events */
+        while (SDL_PollEvent(&event))
+        {
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                running = false;
+                break;
+
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.scancode)
+                {
+                case SDL_SCANCODE_UP:
+                    p2->jump_pressed = true;
+                    break;
+
+                case SDL_SCANCODE_LEFT:
+                    p2->left_pressed = true;
+                    break;
+
+                case SDL_SCANCODE_RIGHT:
+                    p2->right_pressed = true;
+                    break;
+
+                case SDL_SCANCODE_W:
+                    p1->jump_pressed = true;
+                    break;
+
+                case SDL_SCANCODE_A:
+                    p1->left_pressed = true;
+                    break;
+
+                case SDL_SCANCODE_D:
+                    p1->right_pressed = true;
+                    break;
+
+
+
+                default:
+                    break;
+
+                }
+                break;
+
+            case SDL_KEYUP:
+                switch (event.key.keysym.scancode)
+                {
+                case SDL_SCANCODE_UP:
+                    p2->jump_pressed = false;
+                    break;
+
+                case SDL_SCANCODE_LEFT:
+                    p2->left_pressed = false;
+                    break;
+
+                case SDL_SCANCODE_RIGHT:
+                    p2->right_pressed = false;
+                    break;
+
+                case SDL_SCANCODE_W:
+                    p1->jump_pressed = false;
+                    break;
+
+                case SDL_SCANCODE_A:
+                    p1->left_pressed = false;
+                    break;
+
+                case SDL_SCANCODE_D:
+                    p1->right_pressed = false;
+                    break;
+
+
+
+                default:
+                    break;
+
+                }
+                break;
+
+            default:
+                break;
+            }
+        }
+
+        /* Clear screen */
+        SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
+        SDL_RenderClear(rend);
+
+
+        /* Move the rectangle */
+        p1->x_vel = (p1->right_pressed - p1->left_pressed) * SPEED;
+        p1->y_vel += GRAVITY;
+
+
+        p2->x_vel = (p2->right_pressed - p2->left_pressed) * SPEED;
+        p2->y_vel += GRAVITY;
+
+        if (p1->jump_pressed)
+        {
+            p1->y_vel = JUMP;
+
+        }
+
+        if (p2->jump_pressed)
+        {
+            p2->y_vel = JUMP;
+        }
+
+        p1->x_pos += p1->x_vel / 60;
+        p1->y_pos += p1->y_vel / 60;
+
+        p2->x_pos += p2->x_vel / 60;
+        p2->y_pos += p2->y_vel / 60;
+
+        if (p1->x_pos <= 0)
+        {
+            p1->x_pos = 0;
+        }
+
+        if (p2->x_pos <= 0)
+        {
+            p2->x_pos = 0;
+        }
+
+
+
+
+
+        if (p1->x_pos >= WIDTH - p1->rect.w)
+        {
+            p1->x_pos = WIDTH - p1->rect.w;
+        }
+
+        if (p2->x_pos >= WIDTH - p2->rect.w)
+        {
+            p2->x_pos = WIDTH - p2->rect.w;
+        }
+
+        if (p1->y_pos <= 0)
+        {
+            p1->y_pos = 0;
+        }
+
+        if (p2->y_pos <= 0)
+        {
+            p2->y_pos = 0;
+        }
+
+
+        if (p1->y_pos >= HEIGHT - p1->rect.h)
+        {
+            p1->y_vel = 0;
+            p1->y_pos = HEIGHT - p1->rect.h;
+
+
+        }
+
+        if (p2->y_pos >= HEIGHT - p2->rect.h)
+        {
+            p2->y_vel = 0;
+            p2->y_pos = HEIGHT - p2->rect.h;
+
+        }
+
+
+        p1->rect.x = (int)p1->x_pos;
+        p1->rect.y = (int)p1->y_pos;
+                
+        p2->rect.x = (int)p2->x_pos;
+        p2->rect.y = (int)p2->y_pos;
+
+
+
+        /* Draw the rectangle */
+        SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+        SDL_RenderFillRect(rend, &p1->rect);
+        SDL_RenderFillRect(rend, &p2->rect);
+
+        /* Draw to window and loop */
+        SDL_RenderPresent(rend);
+        SDL_Delay(1000 / FPS);
+
+    }
+}
+
+
+
+
+
+ressourceRelease(SDL_Renderer* renderer, SDL_Window* window)
+{
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
+
+freeElements(Player* p1, Player* p2)
+{
+    free(p1);
+    free(p2);
+}
+
 
 
 
@@ -89,212 +311,28 @@ int main(int argc, char* argv[])
 
     }
 
-    /* Main loop */
+
     bool running = true;
-    bool jump_pressed = false, left_pressed = false, right_pressed = false;
-    bool jump_pressed2 = false, left_pressed2 = false, right_pressed2 = false;
 
 
-    float x_pos = 0;
-    float y_pos = (HEIGHT - SIZE);
+    int start = HEIGHT - SIZE;
 
-    float x2_pos = (WIDTH);
-    float y2_pos = (HEIGHT - SIZE);
-
-    float x_vel = 0;
-    float y_vel = 0;
-
-    float x2_vel = 0;
-    float y2_vel = 0;
-
-    SDL_Rect rect = { (int)x_pos, (int)y_pos, SIZE, SIZE };
-    SDL_Rect rect2 = { (int)x_pos, (int)y_pos, SIZE, SIZE };
-
-    SDL_Event event;
-
-    while (running)
-    {
-        /* Process events */
-        while (SDL_PollEvent(&event))
-        {
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                running = false;
-                break;
-
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_UP:
-                    jump_pressed = true;
-                    break;
-
-                case SDL_SCANCODE_LEFT:
-                    left_pressed = true;
-                    break;
-
-                case SDL_SCANCODE_RIGHT:
-                    right_pressed = true;
-                    break;
-
-                case SDL_SCANCODE_W :
-                    jump_pressed2 = true;
-                    break;
-
-                case SDL_SCANCODE_A:
-                    left_pressed2 = true;
-                    break;
-
-                case SDL_SCANCODE_D:
-                    right_pressed2 = true;
-                    break;
+    Player *p1 = playerInit(0, start);
+    Player *p2 = playerInit(WIDTH, start);
 
 
+    
 
-                default:
-                    break;
-
-                }
-                break;
-
-            case SDL_KEYUP:
-                switch (event.key.keysym.scancode)
-                {
-                case SDL_SCANCODE_UP:
-                    jump_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_LEFT:
-                    left_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_RIGHT:
-                    right_pressed = false;
-                    break;
-
-                case SDL_SCANCODE_W:
-                    jump_pressed2 = false;
-                    break;
-
-                case SDL_SCANCODE_A:
-                    left_pressed2 = false;
-                    break;
-
-                case SDL_SCANCODE_D:
-                    right_pressed2 = false;
-                    break;
-
-
-
-                default:
-                    break;
-
-                }
-                break;
-
-            default:
-                break;
-            }
-        }
-
-        /* Clear screen */
-        SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
-        SDL_RenderClear(rend);
-
-
-        /* Move the rectangle */
-        x_vel = (right_pressed - left_pressed) * SPEED;
-        y_vel += GRAVITY;
-
-        x2_vel = (right_pressed2 - left_pressed2) * SPEED;
-        y2_vel += GRAVITY;
-
-        if (jump_pressed)
-        {
-            y_vel = JUMP;
-            
-        }
-
-        if (jump_pressed2)
-        {
-            y2_vel = JUMP;
-        }
-
-        x_pos += x_vel / 60;
-        y_pos += y_vel / 60;
-
-        x2_pos += x2_vel / 60;
-        y2_pos += y2_vel / 60;
-
-        if (x_pos <= 0)
-        {
-            x_pos = 0;
-        }
-
-        if (x2_pos <= 0)
-        {
-            x2_pos = 0;
-        }
-
-        if (x_pos >= WIDTH - rect.w)
-        {
-            x_pos = WIDTH - rect.w;
-        }
-            
-        if (x2_pos >= WIDTH - rect2.w)
-        {
-            x2_pos = WIDTH - rect2.w;
-        }
-
-        if (y_pos <= 0) 
-        {
-            y_pos = 0;
-        }
-
-        if (y2_pos <= 0)
-        {
-            y2_pos = 0;
-        }
-            
-
-        if (y_pos >= HEIGHT - rect.h)
-        {
-            y_vel = 0;
-            y_pos = HEIGHT - rect.h;
-
-                
-        }
-
-        if (y2_pos >= HEIGHT - rect2.h)
-        {
-            y2_vel = 0;
-            y2_pos = HEIGHT - rect2.h;
-
-        }
-
-
-        rect.x = (int)x_pos;
-        rect.y = (int)y_pos;
-
-        rect2.x = (int)x2_pos;
-        rect2.y = (int)y2_pos;
-
-        /* Draw the rectangle */
-        SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
-        SDL_RenderFillRect(rend, &rect);
-        SDL_RenderFillRect(rend, &rect2);
-
-        /* Draw to window and loop */
-        SDL_RenderPresent(rend);
-        SDL_Delay(1000 / FPS);
-
-    }
+    update(running, p1, p2, rend);
 
     /* Release resources */
-    SDL_DestroyRenderer(rend);
-    SDL_DestroyWindow(wind);
-    SDL_Quit();
 
+    ressourceRelease(rend, wind);
+
+
+
+    freeElements(p1, p2);
+
+    
     return 0;
 }
