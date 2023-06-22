@@ -16,16 +16,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
 {
     SDL_Event event;
@@ -223,21 +213,48 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
 
 
 
-
-
-
 int main(int argc, char* argv[])
 {
 
+    
+
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+    {
+        printf("Error initializing SDL: %s\n", SDL_GetError());
+
+    }
+
+
+    SDL_Window* wind = SDL_CreateWindow("Hello Platformer!",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        WIDTH, HEIGHT, 0);
+
+    if (!wind)
+    {
+        printf("Error creating window: %s\n", SDL_GetError());
+        SDL_Quit();
+    }
+
+
+    Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+
+    printf("apres : %p\n", wind);
+
+
+    SDL_Renderer* rend = SDL_CreateRenderer(wind, -1, render_flags);
 
 
 
-    initSDL();
+    if (!rend)
+    {
 
-    SDL_Window* wind = initWindow();
+        printf("Error creating renderer: %s\n", SDL_GetError());
+        SDL_DestroyWindow(wind);
+        SDL_Quit();
+    }
 
 
-    SDL_Renderer* rend = initRenderer(wind);
 
 
     bool running = true;
@@ -245,20 +262,21 @@ int main(int argc, char* argv[])
 
     int start = HEIGHT - SIZE;
 
-    Player *p1 = playerInit(0, start);
-    Player *p2 = playerInit(WIDTH, start);
+    Player p1;  playerInit(&p1,0, start);
+    Player p2;  playerInit(&p2,WIDTH, start);
 
 
     
 
-    update(running, p1, p2, rend);
+    update(running, &p1, &p2, rend);
 
     /* Release resources */
 
     ressourceRelease(rend, wind);
 
-    freeElements(p1, p2);
 
     
     return 0;
 }
+
+

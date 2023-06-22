@@ -5,13 +5,10 @@
 #define SIZE 100
 
 
-Player* playerInit(int x, int y)
+void playerInit(Player* ptr,  int x, int y)
 {
 
-    Player* ptr = (Player*)malloc(sizeof(Player));
 
-    if (ptr != NULL)
-    {
         ptr->jump_pressed = false;
         ptr->left_pressed = false;
         ptr->right_pressed = false;
@@ -25,16 +22,7 @@ Player* playerInit(int x, int y)
 
 
         ptr->rect = rect;
-        return ptr;
 
-
-
-
-    }
-    else
-    {
-        return NULL;
-    }
 
 
 }

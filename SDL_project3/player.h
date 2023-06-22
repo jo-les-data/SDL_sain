@@ -16,3 +16,4 @@ typedef struct Player
 
 } Player;
 
+void playerInit(Player* ptr, int x, int y);
