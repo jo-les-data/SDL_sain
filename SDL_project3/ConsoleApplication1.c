@@ -45,6 +45,8 @@ int main(int argc, char* argv[])
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rend, image);
     SDL_Surface* imagebu = SDL_LoadBMP("bunny.bmp");
     SDL_Texture* texturebu = SDL_CreateTextureFromSurface(rend, imagebu);
+    SDL_Surface* imagerab = SDL_LoadBMP("brownrabbit.bmp");
+    SDL_Texture* texturerab = SDL_CreateTextureFromSurface(rend, imagerab);
 
 
 
@@ -68,7 +70,7 @@ int main(int argc, char* argv[])
 
     
     // Fonction update
-    update(running, &p1, &p2, rend, texturebu, texture);
+    update(running, &p1, &p2, rend, texturebu, texturerab, texture);
 
     
     // Libération des ressources SDL
