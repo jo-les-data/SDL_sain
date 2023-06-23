@@ -29,7 +29,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
                 break;
 
 
-                // Changement de l'�tat des boutons quand les touches sont appuy�es
+                // Changement de l etat des boutons quand les touches sont appuyées
             case SDL_KEYDOWN:
                 switch (event.key.keysym.scancode)
                 {
@@ -68,7 +68,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Textur
                 break;
 
 
-                //Changement de l'�tat des boutons quand les touches sont enlev�s
+                //Changement de l'état des boutons quand les touches sont enlevés
             case SDL_KEYUP:
                 switch (event.key.keysym.scancode)
                 {
