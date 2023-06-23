@@ -20,7 +20,7 @@ bool setGame(Player* p1, Player* p2)
 void resetGame(Player* p1, Player* p2)
 {
     int start_y = HEIGHT - SIZE;
-    if (p1->score + p2->score % 3 == 0)
+    if ((p1->score + p2->score) % 3 == 0)
     {
         p1->isPrey = !(p1->isPrey);
         p2->isPrey = !(p2->isPrey);
