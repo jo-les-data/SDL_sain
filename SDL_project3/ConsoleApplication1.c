@@ -67,10 +67,10 @@ int main(int argc, char* argv[])
     Player p2; 
     bool running = setGame(&p1, &p2);
 
-
+    SDL_Rect obstacle = { WIDTH/2, HEIGHT/2, SIZE*2 , SIZE/4  };
 
     // Fonction update
-    update(running, &p1, &p2, rend, texturebu, texturerab, texture);
+    update(running, &p1, &p2, rend, texturebu, texturerab, texture, &obstacle);
 
 
     // Libération des ressources SDL
