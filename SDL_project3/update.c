@@ -31,18 +31,20 @@ void victoireProie(Player* player1, Player* player2)
     {
         player1->score++;
         resetGame(player1, player2);
+        SDL_Delay(1000);
     }
     else if (player2->isPrey && player2->x_pos <= 10)
     {
         player2->score++;
         resetGame(player1, player2);
+        SDL_Delay(1000);
     }
 }
 
 
 // Fonction update
 void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
-    SDL_Texture* texturebu, SDL_Texture* texturerab, SDL_Texture* texturecar, 
+    SDL_Texture* textureBu, SDL_Texture* textureRab, SDL_Texture* textureCar, 
     SDL_Texture* texture,  SDL_Rect *obstacle)
 {
     SDL_Event event;
@@ -164,19 +166,19 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
         if (p1->isPrey == true)
         {
             SDL_Rect rectCarrot = {WIDTH-SIZE, HEIGHT/2+SIZE, SIZE, SIZE };
-            SDL_RenderCopy(rend, texturecar, NULL, &rectCarrot);
+            SDL_RenderCopy(rend, textureCar, NULL, &rectCarrot);
 
         }
         else if (p2->isPrey == true)
         {
             SDL_Rect rectCarrot = { 0, HEIGHT / 2+SIZE, SIZE, SIZE };
-            SDL_RenderCopy(rend, texturecar, NULL, &rectCarrot);
+            SDL_RenderCopy(rend, textureCar, NULL, &rectCarrot);
 
         }
 
 
-        SDL_RenderCopy(rend, texturebu, NULL, &p1->rect);
-        SDL_RenderCopy(rend, texturerab, NULL, &p2->rect);
+        SDL_RenderCopy(rend, textureBu, NULL, &p1->rect);
+        SDL_RenderCopy(rend, textureRab, NULL, &p2->rect);
         SDL_RenderFillRect(rend, obstacle);
         SDL_RenderPresent(rend);
         SDL_Delay(1000 / FPS);

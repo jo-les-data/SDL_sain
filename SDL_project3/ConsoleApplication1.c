@@ -46,12 +46,12 @@ int main(int argc, char* argv[])
     SDL_Renderer* rend = SDL_CreateRenderer(wind, -1, render_flags);
     SDL_Surface* image = SDL_LoadBMP("image1.bmp");
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rend, image);
-    SDL_Surface* imagebu = SDL_LoadBMP("bunny.bmp");
-    SDL_Texture* texturebu = SDL_CreateTextureFromSurface(rend, imagebu);
-    SDL_Surface* imagerab = SDL_LoadBMP("brownrabbit.bmp");
-    SDL_Texture* texturerab = SDL_CreateTextureFromSurface(rend, imagerab);
-    SDL_Surface* imagecar = SDL_LoadBMP("carrot.bmp");
-    SDL_Texture* texturecar = SDL_CreateTextureFromSurface(rend, imagecar);
+    SDL_Surface* imageBu = SDL_LoadBMP("bunny.bmp");
+    SDL_Texture* textureBu = SDL_CreateTextureFromSurface(rend, imageBu);
+    SDL_Surface* imageRab = SDL_LoadBMP("brownrabbit.bmp");
+    SDL_Texture* textureRab = SDL_CreateTextureFromSurface(rend, imageRab);
+    SDL_Surface* imageCar = SDL_LoadBMP("carrot.bmp");
+    SDL_Texture* textureCar = SDL_CreateTextureFromSurface(rend, imageCar);
 
 
 
@@ -78,11 +78,11 @@ int main(int argc, char* argv[])
     SDL_Rect obstacle = { WIDTH/2, HEIGHT/2, SIZE*2 , SIZE };
 
     // Fonction update
-    update(running, &p1, &p2, rend, texturebu, texturerab, texturecar, texture, &obstacle);
+    update(running, &p1, &p2, rend, textureBu, textureRab, textureCar, texture, &obstacle);
 
 
     // Libération des ressources SDL
-    ressourceRelease(rend, wind, image, imagebu, imagerab, texture, texturebu, texturerab);
+    ressourceRelease(rend, wind, image, imageBu, imageRab, imageCar, texture, textureBu, textureRab, textureCar);
 
 
 
