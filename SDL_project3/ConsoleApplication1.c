@@ -2,9 +2,11 @@
 #include <stdbool.h>
 #include <SDL.h>
 #include "player.h"
+#include "set.h"
+#include "update.h"
+#include "release.h"
 
-
-// Taille de la fenetre et du joueur
+// Taille de la fenêtre et du joueur
 #define WIDTH 1200
 #define HEIGHT 800
 #define SIZE 100
@@ -25,7 +27,7 @@ int main(int argc, char* argv[])
 
 
 
-    // Creation de la fenetre
+    // Creation de la fenêtre
     SDL_Window* wind = SDL_CreateWindow("Hello Platformer!",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
@@ -49,7 +51,6 @@ int main(int argc, char* argv[])
     SDL_Texture* texturerab = SDL_CreateTextureFromSurface(rend, imagerab);
 
 
-
     if (!rend)
     {
 
@@ -61,18 +62,17 @@ int main(int argc, char* argv[])
 
 
     // Initialisation de la boucle update et des deux joueurs
-    bool running = true;
-    int start = HEIGHT - SIZE;
 
-    Player p1;  playerInit(&p1,0, start);
-    Player p2;  playerInit(&p2,WIDTH, start);
+    Player p1;  
+    Player p2; 
+    bool running = setGame(&p1, &p2);
 
 
-    
+
     // Fonction update
     update(running, &p1, &p2, rend, texturebu, texturerab, texture);
 
-    
+
     // Libération des ressources SDL
     ressourceRelease(rend, wind, image, imagebu, imagerab, texture, texturebu, texturerab);
 

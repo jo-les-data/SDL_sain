@@ -14,10 +14,8 @@
 
 
 // Initialisation du joueur avec les positions x et y
-void playerInit(Player* ptr,  int x, int y)
+void playerInit(Player* ptr,  int x, int y, bool isPrey)
 {
-
-        
         ptr->jump_pressed = false;
         ptr->left_pressed = false;
         ptr->right_pressed = false;
@@ -29,14 +27,23 @@ void playerInit(Player* ptr,  int x, int y)
 
         SDL_Rect rect = { (int)ptr->x_pos, (int)ptr->y_pos, SIZE, SIZE };
 
-
         ptr->rect = rect;
-
-
-
+        ptr->isPrey = isPrey;
+        ptr->score = 0;
 }
 
+// Initialisation du joueur avec les positions x et y
+void playerInitPos(Player* ptr, int x, int y)
+{
+    ptr->x_pos = x;
+    ptr->y_pos = y;
+    ptr->x_vel = 0;
+    ptr->y_vel = 0;
 
+    SDL_Rect rect = { (int)ptr->x_pos, (int)ptr->y_pos, SIZE, SIZE };
+
+    ptr->rect = rect;
+}
 
 // Fonction de deplacement du joueur
 void movement(Player* p)
