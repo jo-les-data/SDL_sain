@@ -17,7 +17,7 @@
 int main(int argc, char* argv[])
 {
 
-    
+
     // Initialisation de la librairie SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
@@ -68,11 +68,11 @@ int main(int argc, char* argv[])
 
     // Initialisation de la boucle update et des deux joueurs
 
-    Player p1;  
-    Player p2; 
+    Player p1;
+    Player p2;
     bool running = setGame(&p1, &p2);
 
-    SDL_Rect obstacle = { WIDTH/2, HEIGHT/2, SIZE*2 , SIZE/4  };
+    SDL_Rect obstacle = { WIDTH / 2, HEIGHT / 2, SIZE * 2 , SIZE / 4 };
 
     // Fonction update
     update(running, &p1, &p2, rend, texturebu, texturerab, texturecar, texture, &obstacle);
@@ -82,8 +82,7 @@ int main(int argc, char* argv[])
     ressourceRelease(rend, wind, image, imagebu, imagerab, texture, texturebu, texturerab);
 
 
-    
+
     return 0;
 }
-
 

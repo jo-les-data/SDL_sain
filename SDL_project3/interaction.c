@@ -12,7 +12,7 @@ void colision(Player* player, SDL_Rect* obstacle)
 	SDL_bool hasIntersect = SDL_IntersectRect(&(player->rect), obstacle, &intersect);
 	if (hasIntersect == SDL_TRUE)
 	{
-		/*si l'intersection est horizontale, ca veux dir que le joueur 
+		/*si l'intersection est horizontale, ca veux dir que le joueur
 		est entre en contact avec l'obstacle par en bas en montant ou
 		par en hau en descendant, dans les deux cas, on chage le signe
 		de ca vitesse verticale*/
@@ -20,9 +20,9 @@ void colision(Player* player, SDL_Rect* obstacle)
 		{
 			player->y_vel = -player->y_vel;
 		}
-		/*si l'intersection est verticale, c'est que le joueur est entre 
+		/*si l'intersection est verticale, c'est que le joueur est entre
 		en contact avec l'obstacle par la gauche en allant vers la droite
-		ou par la doite en allant vers la gauche. Dans les deux cas, on 
+		ou par la doite en allant vers la gauche. Dans les deux cas, on
 		change le signe de ca vitesse horizontale*/
 		else if (intersect.w < intersect.h)
 		{
@@ -30,4 +30,3 @@ void colision(Player* player, SDL_Rect* obstacle)
 		}
 	}
 }
-
