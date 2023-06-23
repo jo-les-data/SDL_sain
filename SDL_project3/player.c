@@ -48,7 +48,6 @@ void movement(Player* p)
     // Le joueur monte si il est en train de sauter
     if (p->jump_pressed && (p->jumpCount <= MAX_JUMP ))
     {
-        printf("ma valeur maxCount est: %d   ", p->jumpCount);
             p->y_vel = JUMP;
     }
 

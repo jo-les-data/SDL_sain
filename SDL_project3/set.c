@@ -6,6 +6,8 @@
 #define WIDTH 1200
 
 
+// Reset des positions
+
 void setGame(Player* p1, Player* p2)
 {
     int start = HEIGHT - SIZE;
