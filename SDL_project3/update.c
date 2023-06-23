@@ -47,7 +47,7 @@ void victoireProie(Player* player1, Player* player2)
 
 // Fonction update
 void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
-    SDL_Texture* texturebu, SDL_Texture* texturerab, SDL_Texture* texture)
+    SDL_Texture* texturebu, SDL_Texture* texturerab, SDL_Texture* texture, SDL_Rect *obstacle)
 {
     SDL_Event event;
 
@@ -149,8 +149,8 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
         SDL_RenderClear(rend);
 
         // Calcul des nouvelles positions
-        movement(p1);
-        movement(p2);
+        movement(p1,obstacle);
+        movement(p2,obstacle);
 
         // calcule des interactions
         victoireChasseur(p1, p2);
@@ -161,11 +161,13 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
         SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
         SDL_RenderFillRect(rend, &p1->rect);
         SDL_RenderFillRect(rend, &p2->rect);
+        
 
         // Affichage des sprite et definition du pas 
         SDL_RenderCopy(rend, texture, NULL, NULL);
         SDL_RenderCopy(rend, texturebu, NULL, &p1->rect);
         SDL_RenderCopy(rend, texturerab, NULL, &p2->rect);
+        SDL_RenderFillRect(rend, obstacle);
         SDL_RenderPresent(rend);
         SDL_Delay(1000 / FPS);
 

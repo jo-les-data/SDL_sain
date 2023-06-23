@@ -46,7 +46,7 @@ void playerInitPos(Player* ptr, int x, int y)
 }
 
 // Fonction de deplacement du joueur
-void movement(Player* p)
+void movement(Player* p, SDL_Rect * obstacle)
 {
     // Deplacements verticaux et horizontaux du joueur
     p->x_vel = (p->right_pressed - p->left_pressed) * SPEED;
@@ -87,6 +87,7 @@ void movement(Player* p)
         p->y_pos = HEIGHT - p->rect.h;
     }
 
+    colision(p, obstacle);
 
 
     // Assignation des positions au sprite du joueur
