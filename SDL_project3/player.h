@@ -26,7 +26,14 @@ typedef struct Player
 
     // Sprite du joueur
     SDL_Rect rect;
+    
+    // est-ce une proie, si false, alors c'est un chasseur
+    bool isPrey;
+
+    // nombre de vistoire
+    int score;
 
 } Player;
 
-void playerInit(Player* ptr, int x, int y);
+void playerInit(Player* ptr, int x, int y, bool isPrey);
+void playerInitPos(Player* ptr, int x, int y);
