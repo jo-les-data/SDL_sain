@@ -17,7 +17,6 @@ void victoireChasseur(Player* player1, Player* player2)
 {
     if (SDL_HasIntersection(&player1->rect, &player2->rect) == SDL_TRUE)
     {
-        printf("victoire chasseur\n");
         if (player1->isPrey)
         {
             player2->score++;
