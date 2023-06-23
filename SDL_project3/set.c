@@ -1,9 +1,7 @@
 #include "player.h"
+#include "constante.h"
 
 
-#define HEIGHT 800
-#define SIZE 100
-#define WIDTH 1200
 
 
 // Reset des positions

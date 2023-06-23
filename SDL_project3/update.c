@@ -3,13 +3,9 @@
 #include "player.h"
 #include "update.h"
 #include "set.h"
+#include "constante.h"
 
 
-// Constantes
-#define WIDTH 1200
-#define HEIGHT 800
-#define FPS 60
-#define SIZE 100
 
 /*Le chasseur remporte la victoire quand il rentre en contact
 avec la proie (il l'attrape)*/
