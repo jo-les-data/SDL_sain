@@ -22,6 +22,7 @@ void victoireChasseur(Player* player1, Player* player2)
             player1->score++;
         }
         resetGame(player1, player2);
+        SDL_Delay(1000);
     }
 }
 

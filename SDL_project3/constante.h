@@ -6,6 +6,6 @@
 #define SIZE 100
 #define SPEED 600
 #define GRAVITY 60
-#define JUMP -1200
+#define JUMP -1350
 #define MAX_JUMP 2
 #define FPS 60
