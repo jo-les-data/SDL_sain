@@ -4,7 +4,7 @@
 #include "player.h"
 
 
-// Taille de la fenêtre et du joueur
+// Taille de la fenetre et du joueur
 #define WIDTH 1200
 #define HEIGHT 800
 #define SIZE 100
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 
 
 
-    // Creation de la fenêtre
+    // Creation de la fenetre
     SDL_Window* wind = SDL_CreateWindow("Hello Platformer!",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
