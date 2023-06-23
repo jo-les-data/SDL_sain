@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "player.h"
 #include "set.h"
+#include "constante.h"
 
 void colision(Player* player, SDL_Rect* obstacle)
 {

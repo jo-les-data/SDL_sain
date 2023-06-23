@@ -1,16 +1,7 @@
 #include <SDL.h>
 #include <stdbool.h>
 #include "player.h"
-
-
-// Definition des constantes
-#define WIDTH 1200
-#define HEIGHT 800
-#define SIZE 100
-#define SPEED 600
-#define GRAVITY 60
-#define JUMP -1200
-#define MAX_JUMP 2
+#include "constante.h"
 
 
 // Initialisation du joueur avec les positions x et y
@@ -55,7 +46,9 @@ void movement(Player* p, SDL_Rect * obstacle)
     // Le joueur monte si il est en train de sauter
     if (p->jump_pressed && (p->jumpCount <= MAX_JUMP ))
     {
+        // Passage du booleen a false pour empecher les sauts infinis
         p->jump_pressed = false;
+        
         p->y_vel = JUMP;
     }
 
@@ -64,7 +57,7 @@ void movement(Player* p, SDL_Rect * obstacle)
     p->y_pos += p->y_vel / 60;
 
 
-    // Protections pour emp�cher le joueur de traverser les limites
+    // Protections pour empecher le joueur de traverser les limites
     if (p->x_pos <= 0)
     {
         p->x_pos = 0;
@@ -83,6 +76,7 @@ void movement(Player* p, SDL_Rect * obstacle)
 
     if (p->y_pos >= HEIGHT - p->rect.h)
     {
+        // Reinitialisation du compteur de saut si le joueur retourne en bas
         p->jumpCount = 0;
         p->y_vel = 0;
         p->y_pos = HEIGHT - p->rect.h;

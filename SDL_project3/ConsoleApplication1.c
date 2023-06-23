@@ -5,12 +5,7 @@
 #include "set.h"
 #include "update.h"
 #include "release.h"
-
-// Taille de la fenêtre et du joueur
-#define WIDTH 1200
-#define HEIGHT 800
-#define SIZE 100
-
+#include "constante.h"
 
 
 
@@ -27,11 +22,14 @@ int main(int argc, char* argv[])
 
 
 
+
     // Creation de la fenêtre
-    SDL_Window* wind = SDL_CreateWindow("Hello Platformer!",
+    SDL_Window* wind = SDL_CreateWindow("Never chase the rabbit!",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         WIDTH, HEIGHT, 0);
+
+
 
     if (!wind)
     {
@@ -42,6 +40,9 @@ int main(int argc, char* argv[])
 
     // Creation du renderer
     Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+
+
+
     SDL_Renderer* rend = SDL_CreateRenderer(wind, -1, render_flags);
     SDL_Surface* image = SDL_LoadBMP("image1.bmp");
     SDL_Texture* texture = SDL_CreateTextureFromSurface(rend, image);
@@ -56,6 +57,9 @@ int main(int argc, char* argv[])
 
 
 
+    SDL_SetWindowIcon(wind, SDL_LoadBMP("logo.bmp"));
+
+
     if (!rend)
     {
 
@@ -63,7 +67,6 @@ int main(int argc, char* argv[])
         SDL_DestroyWindow(wind);
         SDL_Quit();
     }
-
 
 
     // Initialisation de la boucle update et des deux joueurs
