@@ -52,6 +52,8 @@ int main(int argc, char* argv[])
     SDL_Texture* textureRab = SDL_CreateTextureFromSurface(rend, imageRab);
     SDL_Surface* imageCar = SDL_LoadBMP("carrot.bmp");
     SDL_Texture* textureCar = SDL_CreateTextureFromSurface(rend, imageCar);
+    SDL_Surface* imagePlat = SDL_LoadBMP("plateform.bmp");
+    SDL_Texture* texturePlat = SDL_CreateTextureFromSurface(rend, imagePlat);
 
 
 
@@ -78,7 +80,7 @@ int main(int argc, char* argv[])
     SDL_Rect obstacle = { WIDTH/2, HEIGHT/2, SIZE*2 , SIZE };
 
     // Fonction update
-    update(running, &p1, &p2, rend, textureBu, textureRab, textureCar, texture, &obstacle);
+    update(running, &p1, &p2, rend, textureBu, textureRab, textureCar, texture, texturePlat, &obstacle);
 
 
     // Libération des ressources SDL
