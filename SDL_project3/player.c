@@ -55,7 +55,8 @@ void movement(Player* p, SDL_Rect * obstacle)
     // Le joueur monte si il est en train de sauter
     if (p->jump_pressed && (p->jumpCount <= MAX_JUMP ))
     {
-            p->y_vel = JUMP;
+        p->jump_pressed = false;
+        p->y_vel = JUMP;
     }
 
     // Deplacement du joueur en fonction de la vitesse

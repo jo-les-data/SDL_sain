@@ -19,6 +19,16 @@ void colision(Player* player, SDL_Rect* obstacle)
 		if (intersect.w > intersect.h)
 		{
 			player->y_vel = -player->y_vel;
+			if (player->y_pos > obstacle->y)
+			{
+				player->y_pos = obstacle->y + obstacle->h + 10;
+				player->rect.y = obstacle->y + obstacle->h + 10;
+			}
+			else
+			{
+				player->y_pos = obstacle->y - player->rect.h - 1;
+				player->rect.y = obstacle->y - player->rect.h - 1;
+			}
 		}
 		/*si l'intersection est verticale, c'est que le joueur est entre
 		en contact avec l'obstacle par la gauche en allant vers la droite
@@ -27,6 +37,16 @@ void colision(Player* player, SDL_Rect* obstacle)
 		else if (intersect.w < intersect.h)
 		{
 			player->x_vel = -player->x_vel;
+			if (player->x_pos > obstacle->x)
+			{
+				player->x_pos = obstacle->x + obstacle->w + 1;
+				player->rect.x = obstacle->x + obstacle->w + 1;
+			}
+			else
+			{
+				player->x_pos = obstacle->x - player->rect.w - 1;
+				player->rect.x = obstacle->x - player->rect.w - 1;
+			}
 		}
 	}
 }
