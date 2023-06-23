@@ -46,7 +46,8 @@ void victoireProie(Player* player1, Player* player2)
 
 // Fonction update
 void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
-    SDL_Texture* texturebu, SDL_Texture* texturerab, SDL_Texture* texture, SDL_Rect *obstacle)
+    SDL_Texture* texturebu, SDL_Texture* texturerab, SDL_Texture* texturecar, 
+    SDL_Texture* texture,  SDL_Rect *obstacle)
 {
     SDL_Event event;
 
@@ -164,6 +165,20 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend,
 
         // Affichage des sprite et definition du pas 
         SDL_RenderCopy(rend, texture, NULL, NULL);
+        if (p1->isPrey == true)
+        {
+            SDL_Rect rectCarrot = {WIDTH-SIZE, HEIGHT/2+SIZE, SIZE, SIZE };
+            SDL_RenderCopy(rend, texturecar, NULL, &rectCarrot);
+
+        }
+        else if (p2->isPrey == true)
+        {
+            SDL_Rect rectCarrot = { 0, HEIGHT / 2+SIZE, SIZE, SIZE };
+            SDL_RenderCopy(rend, texturecar, NULL, &rectCarrot);
+
+        }
+
+
         SDL_RenderCopy(rend, texturebu, NULL, &p1->rect);
         SDL_RenderCopy(rend, texturerab, NULL, &p2->rect);
         SDL_RenderFillRect(rend, obstacle);
