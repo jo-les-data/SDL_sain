@@ -12,7 +12,7 @@
 
 
 // Fonction update
-void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
+void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend, SDL_Texture* texturebu, SDL_Texture* texture)
 {
     SDL_Event event;
 
@@ -125,6 +125,9 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
         SDL_RenderFillRect(rend, &p2->rect);
 
         // Affichage des sprite et définition du pas 
+        SDL_RenderCopy(rend, texture, NULL, NULL);
+        SDL_RenderCopy(rend, texturebu, NULL, &p1->rect);
+        SDL_RenderCopy(rend, texturebu, NULL, &p2->rect);
         SDL_RenderPresent(rend);
         SDL_Delay(1000 / FPS);
 

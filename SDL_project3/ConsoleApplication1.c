@@ -41,6 +41,10 @@ int main(int argc, char* argv[])
     // Creation du renderer
     Uint32 render_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
     SDL_Renderer* rend = SDL_CreateRenderer(wind, -1, render_flags);
+    SDL_Surface* image = SDL_LoadBMP("image1.bmp");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(rend, image);
+    SDL_Surface* imagebu = SDL_LoadBMP("bunny.bmp");
+    SDL_Texture* texturebu = SDL_CreateTextureFromSurface(rend, imagebu);
 
 
 
@@ -64,7 +68,7 @@ int main(int argc, char* argv[])
 
     
     // Fonction update
-    update(running, &p1, &p2, rend);
+    update(running, &p1, &p2, rend, texturebu, texture);
 
     
     // Libération des ressources SDL
