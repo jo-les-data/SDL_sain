@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 
     
     // Libération des ressources SDL
-    ressourceRelease(rend, wind);
+    ressourceRelease(rend, wind, image, imagebu, imagerab, texture, texturebu, texturerab);
 
 
     
