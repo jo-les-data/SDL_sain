@@ -2,7 +2,9 @@
 #include <stdbool.h>
 #include <SDL.h>
 #include "player.h"
-
+#include "set.h"
+#include "update.h"
+#include "release.h"
 
 // Taille de la fenêtre et du joueur
 #define WIDTH 1200
@@ -15,7 +17,7 @@
 int main(int argc, char* argv[])
 {
 
-    
+
     // Initialisation de la librairie SDL
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
@@ -49,7 +51,6 @@ int main(int argc, char* argv[])
     SDL_Texture* texturerab = SDL_CreateTextureFromSurface(rend, imagerab);
 
 
-
     if (!rend)
     {
 
@@ -61,24 +62,22 @@ int main(int argc, char* argv[])
 
 
     // Initialisation de la boucle update et des deux joueurs
-    bool running = true;
-    int start = HEIGHT - SIZE;
 
-    Player p1;  playerInit(&p1,0, start);
-    Player p2;  playerInit(&p2,WIDTH, start);
+    Player p1;
+    Player p2;
+    bool running = setGame(&p1, &p2);
 
+    SDL_Rect obstacle = { WIDTH / 2, HEIGHT / 2, SIZE * 2 , SIZE / 4 };
 
-    
     // Fonction update
-    update(running, &p1, &p2, rend, texturebu, texturerab, texture);
+    update(running, &p1, &p2, rend, texturebu, texturerab, texture, &obstacle);
 
-    
+
     // Libération des ressources SDL
-    ressourceRelease(rend, wind);
+    ressourceRelease(rend, wind, image, imagebu, imagerab, texture, texturebu, texturerab);
 
 
-    
+
     return 0;
 }
-
 
