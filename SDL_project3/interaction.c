@@ -28,6 +28,7 @@ void colision(Player* player, SDL_Rect* obstacle)
 			{
 				player->y_pos = obstacle->y - player->rect.h - 1;
 				player->rect.y = obstacle->y - player->rect.h - 1;
+				player->jumpCount = 0;
 			}
 		}
 		/*si l'intersection est verticale, c'est que le joueur est entre
@@ -41,11 +42,13 @@ void colision(Player* player, SDL_Rect* obstacle)
 			{
 				player->x_pos = obstacle->x + obstacle->w + 1;
 				player->rect.x = obstacle->x + obstacle->w + 1;
+				player->jumpCount = 0;
 			}
 			else
 			{
 				player->x_pos = obstacle->x - player->rect.w - 1;
 				player->rect.x = obstacle->x - player->rect.w - 1;
+				player->jumpCount = 0;
 			}
 		}
 	}
