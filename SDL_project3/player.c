@@ -10,6 +10,7 @@
 #define SPEED 600
 #define GRAVITY 60
 #define JUMP -1200
+#define MAX_JUMP 2
 
 
 // Initialisation du joueur avec les positions x et y
@@ -37,22 +38,19 @@ void playerInit(Player* ptr,  int x, int y)
 
 
 
-// Fonction de déplacement du joueur
+// Fonction de deplacement du joueur
 void movement(Player* p)
 {
     // Deplacements verticaux et horizontaux du joueur
     p->x_vel = (p->right_pressed - p->left_pressed) * SPEED;
     p->y_vel += GRAVITY;
 
-
-
     // Le joueur monte si il est en train de sauter
-    if (p->jump_pressed)
+    if (p->jump_pressed && (p->jumpCount <= MAX_JUMP ))
     {
-        p->y_vel = JUMP;
-
+        printf("ma valeur maxCount est: %d   ", p->jumpCount);
+            p->y_vel = JUMP;
     }
-
 
     // Deplacement du joueur en fonction de la vitesse
     p->x_pos += p->x_vel / 60;
@@ -78,10 +76,9 @@ void movement(Player* p)
 
     if (p->y_pos >= HEIGHT - p->rect.h)
     {
+        p->jumpCount = 0;
         p->y_vel = 0;
         p->y_pos = HEIGHT - p->rect.h;
-
-
     }
 
 
