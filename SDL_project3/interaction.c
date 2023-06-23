@@ -20,6 +20,7 @@ void colision(Player* player, SDL_Rect* obstacle)
 		if (intersect.w > intersect.h)
 		{
 			player->y_vel = -player->y_vel;
+			//on deplace le player de facon a ne plus avoir d'intersection
 			if (player->y_pos > obstacle->y)
 			{
 				player->y_pos = obstacle->y + obstacle->h + 10;
@@ -39,6 +40,7 @@ void colision(Player* player, SDL_Rect* obstacle)
 		else if (intersect.w < intersect.h)
 		{
 			player->x_vel = -player->x_vel;
+			//on deplace le player de facon a ne plus avoir d'intersection
 			if (player->x_pos > obstacle->x)
 			{
 				player->x_pos = obstacle->x + obstacle->w + 1;
