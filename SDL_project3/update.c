@@ -35,6 +35,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
                 {
                 case SDL_SCANCODE_UP:
                     p2->jump_pressed = true;
+                    p2->jumpCount++;
                     break;
 
                 case SDL_SCANCODE_LEFT:
@@ -47,6 +48,7 @@ void update(bool running, Player* p1, Player* p2, SDL_Renderer* rend)
 
                 case SDL_SCANCODE_W:
                     p1->jump_pressed = true;
+                    p1->jumpCount++;
                     break;
 
                 case SDL_SCANCODE_A:

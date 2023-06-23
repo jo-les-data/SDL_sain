@@ -21,6 +21,9 @@ typedef struct Player
     int x_vel;
     int y_vel;
 
+    // Compteur de saut
+    int jumpCount;
+
     // Sprite du joueur
     SDL_Rect rect;
 
