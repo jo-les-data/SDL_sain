@@ -2,7 +2,7 @@
 #include "player.h"
 
 
-// Libération des ressources SDL
+// Libï¿½ration des ressources SDL
 ressourceRelease(SDL_Renderer* renderer, SDL_Window* window)
 {
     SDL_DestroyRenderer(renderer);

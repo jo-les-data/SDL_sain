@@ -57,7 +57,7 @@ void movement(Player* p)
     p->y_pos += p->y_vel / 60;
 
 
-    // Protections pour empêcher le joueur de traverser les limites
+    // Protections pour empï¿½cher le joueur de traverser les limites
     if (p->x_pos <= 0)
     {
         p->x_pos = 0;
